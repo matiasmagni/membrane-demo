@@ -2,10 +2,6 @@
 
 Code Challenge: E2E test on the sign-in, sign-up pages and the login endpoint response.
 
-Demo video:
-
-[![Alt text](https://i.ibb.co/J5bChdV/Cypress-Cucumber-repo.jpg)](https://youtu.be/78fh1avPSr8)
-
 #### Table of contents
 
 * [Get started](#get-started)
@@ -69,22 +65,26 @@ stepDefinitions | `cypress/integration` when `nonGlobalStepDefinitions` is true 
 
 Put the feature files in `cypress/integration/`
 
-Example: cypress/integration/SearchForAds.feature
+Example: cypress/integration/SignIn.feature
 
 ```gherkin
-Feature: Search for ads
-  As a Customer, I want to see if the second ad from the second results page when searching for "Iphone"
-  on AliExpress has at least 1 item to be bought.
+Feature: Sign In
+  As a User, I want to be able to sign into Membrane demo.
 
-  Scenario: Customer searches for "Iphone" and see at least 1 item to buy on the second ad at the second results page
-    Given the customer has navigated to AliExpress home page
-    When the customer searches for "Iphone" on AliExpress searchbox
-    Then AliExpress 1° results page is correctly displayed
-    When the customer clicks on "Next" button at AliExpress results page paginator
-    Then AliExpress 2° results page is correctly displayed
-    And a 2° ad is correctly displayed at AliExpress 2° results page
-    When the customer clicks on 2° ad's details link
-    Then the ad has at least 1 item to be bought
+  Scenario: User visualizes Sign In page correctly.
+    Given the user has navigated to Membrane Demo home page
+    Then the user is redirected to a secured URL
+    And the user is redirected to the "Sign In" page
+    And the user visualizes "Sign In" page elements correctly
+      | element              | type           | content              |
+      | Logo                 | image          | membrane logo        |
+      | Title                | text           | Sign In              |
+      | Email                | text input     | Enter your email     |
+      | Password             | password input | Insert your password |
+      | Eye Icon             | SVG image      | eye                  |
+      | Next Button          | button         | Next                 |
+      | Sign Up Link         | text link      | Sign Up              |
+      | Forgot Password Link | text link      | Forgot Password      |
 ```
 
 ### Bundled features files
@@ -112,20 +112,23 @@ You also have to add support for `.features` files to your Cypress configuration
 
 The `.feature` file will use steps definitions from a directory with the same name as your `.feature` file. The javascript files containing the step definitions can have other names if you want to break them into different concerns.
 
-Easier to show than to explain, so, assuming the feature file is in `cypress/integration/SearhForAds.feature` , as proposed above, the preprocessor will read all the files inside `cypress/integration`, so:
+Easier to show than to explain, so, assuming the feature file is in `cypress/integration/SignIn.feature` , as proposed above, the preprocessor will read all the files inside `cypress/integration`, so:
 
-`cypress/support/step_definitions/SearchForAds.js` (or any other .js file in the same path)
+`cypress/support/step_definitions/SignIn.js` (or any other .js file in the same path)
 
 ```javascript
 /// <reference types="Cypress" />
-
 import { Given, When, Then } from "cypress-cucumber-preprocessor/steps";
+import BasePage from "../pages/BasePage";
 import HomePage from '../pages/HomePage';
+import SignInPage from "../pages/SignInPage";
 
-Given(`the customer has navigated to AliExpress home page`, () => {
+
+Given('the user has navigated to Membrane Demo home page', () => {
   const page = new HomePage();
-  page.navigateToThisPage(30);
+  page.navigateToThisPage(60);
 });
+...
 ```
 
 ## How to write tests
@@ -308,7 +311,7 @@ yarn test:dashboard
 To run the test using Cypress electron app:
 
 ```shell
-yarn test:debug
+yarn debug
 ```
 
 To clean all the generated HTML reports:
