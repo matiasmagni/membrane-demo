@@ -1,6 +1,6 @@
-# Example of running cucumber/gherkin-syntaxed specs with Cypress.io over AliExpress
+# membrane-demo
 
-The **aliexpress-test-automation-framework** adds support for using feature files when testing with Cypress.
+Code Challenge: E2E test on the sign-in, sign-up pages and the login endpoint response.
 
 Demo video:
 

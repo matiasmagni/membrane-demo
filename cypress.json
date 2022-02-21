@@ -1,6 +1,6 @@
 {
-  "projectId": "8dpnan",
-  "baseUrl": "https://www.aliexpress.com",
+  "projectId": "membraneDemo",
+  "baseUrl": "http://demo.membrane.trade/",
   "testFiles": "**/*.{feature,features}",
   "viewportWidth": 1024,
   "viewportHeight": 800,
