@@ -1,4 +1,5 @@
 # membrane-demo
+<<<<<<< HEAD
 
 Code Challenge: E2E test on the sign-in, sign-up pages and the login endpoint response.
 
@@ -397,3 +398,6 @@ To get vscode to resolve your steps, install the [Cucumber (Gherkin) Full Suppor
 You will also need to tell the extension the locations of your feature and step definition files [as described here](https://github.com/alexkrechik/VSCucumberAutoComplete#settings-example).
 
 Note, that unlike WebStorm which will correctly identify multiple implementations of matching steps, the vscode extension currently resolves to the first matching occurence it finds on its path.
+=======
+Code Challenge: E2E test on the sign-in, sign-up pages and the login endpoint response.
+>>>>>>> 7d7f2d93b34e427f809daab4280325e1456cef9c
