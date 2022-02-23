@@ -1,5 +1,5 @@
 {
-    "URL": "/sign-up",
+    "URL": "/sign-in",
     "logo": ".styles_appTitle__qn1G- img",
     "title": "h2",
     "email": "input[name='email']",
