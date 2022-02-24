@@ -12,8 +12,8 @@ export default abstract class BasePage {
     constructor() {
         try {
             this.selectors = require(`../../fixtures/selectors/${this.constructor.name}.json`);
-            this.data = require(`../../fixtures/data/${this.constructor.name}.json`);
             this.url = this.selectors.URL;
+            this.data = require(`../../fixtures/data/${this.constructor.name}.json`);
         } catch (error) {
             cy.log('Page Object', error);
         }

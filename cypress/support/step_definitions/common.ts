@@ -1,8 +1,25 @@
 /// <reference types="Cypress" />
 import { Given, Then, When } from "cypress-cucumber-preprocessor/steps";
+import { capitalize, camelize } from "../../utils/string";
 import { getRandomElementFrom } from "../../utils/random";
 import BasePage from "../pages/BasePage";
 import PageFactory from "../pages/PageFactory";
+import SignUpPage from "../pages/SignUpPage";
+
+const unfocus = (fieldName: string, pageName: string) => {
+    const page: BasePage = PageFactory.getCurrentPageObject(pageName);
+    page.getElement(fieldName).focus().blur();
+};
+
+const verifyErrorMessage = (errorMessage: string, fieldName: string, pageName: string) => {
+    PageFactory.getCurrentPageObject(pageName)
+        .getElementBySearchParam('errorMessage', camelize(fieldName))
+        .should('exist')
+        .and('to.be.visible')
+        .and('to.have.text', errorMessage)
+        .should('have.css', 'color')
+        .and('eq', 'rgb(235, 87, 87)');
+};
 
 Given('the user has navigated to Membrane Demo {string} page', (pageName) => {
     PageFactory.getCurrentPageObject(pageName).navigateToThisPage(30);
@@ -116,22 +133,18 @@ Then('the user visualizes {string} button is active', (buttonName: string) => {
     BasePage.getButtonByName(buttonName).should('not.be.disabled');
 });
 
-When('the user unfocus the {string} field on {string} page',
-    (fieldName: string, pageName: string) => {
-        PageFactory.getCurrentPageObject(pageName).getElement(fieldName).focus().blur();
+When('the user unfocus the {string} field on {string} page', unfocus);
+
+When(/the user unfocus the Phone Number (dropdown|input) field on Sign Up page/,
+    (fieldType: string) => {
+        new SignUpPage().getElement('phone' + capitalize(fieldType)).focus().blur();
     }
 );
 
-Then('the user visualizes {string} error message below the {string} field on {string} page',
-    (errorMessage: string, fieldName: string, pageName: string) => {
-        PageFactory.getCurrentPageObject(pageName)
-            .getElementBySearchParam('errorMessage', fieldName.toLowerCase())
-            .should('exist')
-            .and('to.be.visible')
-            .and('to.have.text', errorMessage)
-            .should('have.css', 'color')
-            .and('eq', 'rgb(235, 87, 87)');
-    }
+Then('the user visualizes {string} error message below the {string} field on {string} page', verifyErrorMessage);
+
+Then('the user visualizes {string} error message below the Phone Number field on Sign Up page',
+    (errorMessage: string) => verifyErrorMessage(errorMessage, 'number', 'Sign Up')
 );
 
 When('the user inputs invalid format data on the {string} field on {string} page',
@@ -144,7 +157,7 @@ When('the user inputs invalid format data on the {string} field on {string} page
 When('the user fills all fields with wrong data on {string} page', (pageName: string) => {
     let page: BasePage = PageFactory.getCurrentPageObject(pageName);
     page.getElement('Email').clear().type(getRandomElementFrom(page.getTestData('wrongEmails')));
-    
+
     page.getElement('Password').clear().type(
         getRandomElementFrom(page.getTestData('wrongPasswords'))
     );
@@ -159,7 +172,7 @@ Then('the user visualizes {string} on {string} popup message',
         PageFactory.getCurrentPageObject(pageName).getElement('errorMessageIcon')
             .should('exist')
             .and('to.be.visible');
-        
+
         PageFactory.getCurrentPageObject(pageName).getElement('popupErrorMessage')
             .should('exist')
             .and('to.be.visible')

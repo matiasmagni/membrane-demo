@@ -16,18 +16,18 @@ Feature: Sign Up
   Scenario: User visualizes error messages after inputting invalid data
     Given the user has navigated to Membrane Demo "Sign Up" page
     Then the user visualizes "Next" button is inactive
-    When the user unfocus the "First Name" field
-    Then the user visualizes "This field is required" error message below the "First Name" field
-    When the user unfocus the "Last Name" field
-    Then the user visualizes "This field is required" error message below the "Last Name" field
-    When the user unfocus the "Email" field
-    Then the user visualizes "This field is required" error message below the "Email" field
-    When the user unfocus the "Phone Number" dropdown field
-    Then the user visualizes "This field is required" error message below the "Phone Number" field
-    When the user unfocus the "Phone Number" input field
-    Then the user visualizes "This field is required" error message below the "Phone Number" field
-    When the user inputs invalid format data on the "Email" field
-    Then the user visualizes "Invalid email format" error message below the "Email" field
+    When the user unfocus the "First Name" field on "Sign Up" page
+    Then the user visualizes "This field is required" error message below the "First Name" field on "Sign Up" page
+    When the user unfocus the "Last Name" field on "Sign Up" page
+    Then the user visualizes "This field is required" error message below the "Last Name" field on "Sign Up" page
+    When the user unfocus the "Email" field on "Sign Up" page
+    Then the user visualizes "This field is required" error message below the "Email" field on "Sign Up" page
+    #When the user unfocus the "Phone Number" dropdown field on "Sign Up" page on "Sign Up" page
+    #Then the user visualizes "This field is required" error message below the "Phone Number" field on "Sign Up" page
+    When the user unfocus the Phone Number input field on Sign Up page
+    Then the user visualizes "This field is required" error message below the Phone Number field on Sign Up page
+    When the user inputs invalid format data on the "Email" field on "Sign Up" page
+    Then the user visualizes "Invalid email format" error message below the "Email" field on "Sign Up" page
 
   Scenario: User completes sign up process after inputting valid data (Hybrid)
     Given the user has navigated to Membrane Demo "Sign Up" page

@@ -1,0 +1,29 @@
+{
+    "validEmails": [
+        "signup-d@mail.com",
+        "signup.def@mail.com",
+        "signup@mail.com",
+        "signup_def@mail.com",
+        "signup+def@mail.com"
+    ],
+    "invalidEmails": [
+        "signup",
+        "signup@mail",
+        "signup-@mail.com",
+        "signup..def@mail.com",
+        ".signup@mail.com",
+        "signup#def@mail.com"
+    ],
+    "wrongEmails": [
+        "solanabasle+registered@gmail.com",
+        "solanabasle+registered1@gmail.com",
+        "solanabasle+registered2@gmail.com",
+        "solanabasle+registered3@gmail.com"
+    ],
+    "wrongPasswords": [
+        "password",
+        "123456",
+        "654321",
+        "111111"
+    ]
+}
