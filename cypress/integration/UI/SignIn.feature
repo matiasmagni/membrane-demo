@@ -19,15 +19,13 @@ Feature: Sign In
   Scenario: User visualizes error messages after inputting invalid data
     Given the user has navigated to Membrane Demo "Sign In" page
     Then the user visualizes "Next" button is inactive
-    When the user unfocus the "Email" field
-    Then the user visualizes "This field is required" error message below the "Email" field
-    When the user unfocus the "Password" field
-    Then the user visualizes "This field is required" error message below the "Password" field
-    When the user inputs invalid format data on the "Email" field
-    Then the user visualizes "Invalid email format" error message below the "Email" field
-    When the user fills all fields with wrong data
-      | Email    | solanabasle+test@gmail.com |
-      | Password | 123456                     |
+    When the user unfocus the "Email" field on "Sign In" page
+    Then the user visualizes "This field is required" error message below the "Email" field on "Sign In" page
+    When the user unfocus the "Password" field on "Sign In" page
+    Then the user visualizes "This field is required" error message below the "Password" field on "Sign In" page
+    When the user inputs invalid format data on the "Email" field on "Sign In" page
+    Then the user visualizes "Invalid email format" error message below the "Email" field on "Sign In" page
+    When the user fills all fields with wrong data on "Sign In" page
     Then the user visualizes "Next" button is active
     When the user clicks on "Next" button
-    Then the user visualizes "Wrong email or password, try again." on popup message
+    Then the user visualizes "Wrong email or password, try again." on "Sign In" popup message

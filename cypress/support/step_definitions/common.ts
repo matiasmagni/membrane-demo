@@ -1,46 +1,15 @@
 /// <reference types="Cypress" />
-import { Given, Then } from "cypress-cucumber-preprocessor/steps";
+import { Given, Then, When } from "cypress-cucumber-preprocessor/steps";
+import { getRandomElementFrom } from "../../utils/random";
 import BasePage from "../pages/BasePage";
-import HomePage from "../pages/HomePage";
-import SignInPage from "../pages/SignInPage";
-import SignUpPage from "../pages/SignUpPage";
+import PageFactory from "../pages/PageFactory";
 
 Given('the user has navigated to Membrane Demo {string} page', (pageName) => {
-    let page: BasePage;
-
-    switch (pageName) {
-        case 'Home':
-            page = new HomePage();
-            break;
-
-        case 'Sign In':
-            page = new SignInPage();
-            break;
-
-        case 'Sign Up':
-            page = new SignUpPage();
-            break;
-
-        default:
-            throw new Error(`"${pageName}" page navigation was not implemented yet!`);
-    }
-
-    page.navigateToThisPage(30);
+    PageFactory.getCurrentPageObject(pageName).navigateToThisPage(30);
 });
 
 Then('the user is redirected to the {string} page', (pageName) => {
-    let page: BasePage;
-
-    switch (pageName) {
-        case 'Sign In':
-            page = new SignInPage();
-            break;
-
-        default:
-            throw new Error(`"${pageName}" page redirecting verification was not implemented yet!`);
-    }
-
-    const regex = new RegExp(`${page.getUrl()}$`);
+    const regex = new RegExp(`${PageFactory.getCurrentPageObject(pageName).getUrl()}$`);
     cy.url().should('match', regex);
 });
 
@@ -50,12 +19,10 @@ Then('the user is redirected to a secured URL', () => {
 
 Then('the user visualizes {string} page elements correctly', (pageName, table: any) => {
     const data = table.rows();
-    let page: BasePage;
+    let page: BasePage = PageFactory.getCurrentPageObject(pageName);
 
     switch (pageName) {
         case "Sign In":
-            page = new SignInPage();
-
             data.forEach(([elementName, elementType, elementContent]: string[], index: Number) => {
                 let element: Cypress.Chainable;
 
@@ -140,3 +107,62 @@ Then('the user visualizes {string} page elements correctly', (pageName, table: a
 Then('the user completes the {string} process manually', (processName: string) => {
     cy.pause();
 });
+
+Then('the user visualizes {string} button is inactive', (buttonName: string) => {
+    BasePage.getButtonByName(buttonName).should('be.disabled');
+});
+
+Then('the user visualizes {string} button is active', (buttonName: string) => {
+    BasePage.getButtonByName(buttonName).should('not.be.disabled');
+});
+
+When('the user unfocus the {string} field on {string} page',
+    (fieldName: string, pageName: string) => {
+        PageFactory.getCurrentPageObject(pageName).getElement(fieldName).focus().blur();
+    }
+);
+
+Then('the user visualizes {string} error message below the {string} field on {string} page',
+    (errorMessage: string, fieldName: string, pageName: string) => {
+        PageFactory.getCurrentPageObject(pageName)
+            .getElementBySearchParam('errorMessage', fieldName.toLowerCase())
+            .should('exist')
+            .and('to.be.visible')
+            .and('to.have.text', errorMessage)
+            .should('have.css', 'color')
+            .and('eq', 'rgb(235, 87, 87)');
+    }
+);
+
+When('the user inputs invalid format data on the {string} field on {string} page',
+    (fieldName: string, pageName: string) => {
+        let page: BasePage = PageFactory.getCurrentPageObject(pageName);
+        page.getElement(fieldName).clear().type(getRandomElementFrom(page.getTestData('invalidEmails')));
+    }
+);
+
+When('the user fills all fields with wrong data on {string} page', (pageName: string) => {
+    let page: BasePage = PageFactory.getCurrentPageObject(pageName);
+    page.getElement('Email').clear().type(getRandomElementFrom(page.getTestData('wrongEmails')));
+    
+    page.getElement('Password').clear().type(
+        getRandomElementFrom(page.getTestData('wrongPasswords'))
+    );
+});
+
+When('the user clicks on {string} button', (buttonName: string) => {
+    BasePage.getButtonByName(buttonName).click();
+});
+
+Then('the user visualizes {string} on {string} popup message',
+    (errorMessage: string, pageName: string) => {
+        PageFactory.getCurrentPageObject(pageName).getElement('errorMessageIcon')
+            .should('exist')
+            .and('to.be.visible');
+        
+        PageFactory.getCurrentPageObject(pageName).getElement('popupErrorMessage')
+            .should('exist')
+            .and('to.be.visible')
+            .and('to.have.text', errorMessage);
+    }
+);
