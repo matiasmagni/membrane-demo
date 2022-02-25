@@ -1,5 +1,5 @@
 export const capitalize = (str: string) => {
-    const lowerCaseStr = str.toLocaleLowerCase();
+    const lowerCaseStr = str.toLowerCase();
 
     return str.charAt(0).toUpperCase() + lowerCaseStr.slice(1);
 }

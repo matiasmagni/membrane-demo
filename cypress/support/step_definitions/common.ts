@@ -1,24 +1,13 @@
 /// <reference types="Cypress" />
-import { Given, Then, When } from "cypress-cucumber-preprocessor/steps";
-import { capitalize, camelize } from "../../utils/string";
-import { getRandomElementFrom } from "../../utils/random";
-import BasePage from "../pages/BasePage";
-import PageFactory from "../pages/PageFactory";
-import SignUpPage from "../pages/SignUpPage";
+import { Given, Then, When } from 'cypress-cucumber-preprocessor/steps';
+import { getRandomElementFrom } from '../../utils/random';
+import App from '../App';
+import BasePage from '../pages/BasePage';
+import PageFactory from '../pages/PageFactory';
 
 const unfocus = (fieldName: string, pageName: string) => {
     const page: BasePage = PageFactory.getCurrentPageObject(pageName);
     page.getElement(fieldName).focus().blur();
-};
-
-const verifyErrorMessage = (errorMessage: string, fieldName: string, pageName: string) => {
-    PageFactory.getCurrentPageObject(pageName)
-        .getElementBySearchParam('errorMessage', camelize(fieldName))
-        .should('exist')
-        .and('to.be.visible')
-        .and('to.have.text', errorMessage)
-        .should('have.css', 'color')
-        .and('eq', 'rgb(235, 87, 87)');
 };
 
 Given('the user has navigated to Membrane Demo {string} page', (pageName) => {
@@ -34,7 +23,7 @@ Then('the user is redirected to a secured URL', () => {
     cy.url().should('match', /^https?:\/\//);
 });
 
-Then('the user visualizes {string} page elements correctly', (pageName, table: any) => {
+Then(`the user visualizes {string} (page|form) elements correctly`, (pageName, table: any) => {
     const data = table.rows();
     let page: BasePage = PageFactory.getCurrentPageObject(pageName);
 
@@ -121,7 +110,7 @@ Then('the user visualizes {string} page elements correctly', (pageName, table: a
     }
 });
 
-Then('the user completes the {string} process manually', (processName: string) => {
+When('the user receives the 6-digit security code, inputs it and click on Next button manually', (processName: string) => {
     cy.pause();
 });
 
@@ -135,17 +124,7 @@ Then('the user visualizes {string} button is active', (buttonName: string) => {
 
 When('the user unfocus the {string} field on {string} page', unfocus);
 
-When(/the user unfocus the Phone Number (dropdown|input) field on Sign Up page/,
-    (fieldType: string) => {
-        new SignUpPage().getElement('phone' + capitalize(fieldType)).focus().blur();
-    }
-);
-
-Then('the user visualizes {string} error message below the {string} field on {string} page', verifyErrorMessage);
-
-Then('the user visualizes {string} error message below the Phone Number field on Sign Up page',
-    (errorMessage: string) => verifyErrorMessage(errorMessage, 'number', 'Sign Up')
-);
+Then('the user visualizes {string} error message below the {string} field on {string} page', App.verifyErrorMessage);
 
 When('the user inputs invalid format data on the {string} field on {string} page',
     (fieldName: string, pageName: string) => {
@@ -179,3 +158,27 @@ Then('the user visualizes {string} on {string} popup message',
             .and('to.have.text', errorMessage);
     }
 );
+
+When('the user fills all fields with valid data on {string} page',
+    (pageName: string, table: any) => {
+        const data: any = table.rows();
+        const page: BasePage = PageFactory.getCurrentPageObject(pageName);
+        
+        data.forEach(([fieldName, fieldValue]: string[]) => {
+            if (fieldName === 'Phone Number Dropdown') {
+                page.getElement(fieldName).click({ force: true });
+                cy.contains('li', fieldValue).click({ force: true });
+            } else {
+                page.getElement(fieldName).clear().type(fieldValue);
+            }
+        });
+    }
+);
+
+Then('the user visualizes {string} on {string} page', (message: string, pageName: string) => {
+    message.split('{address}').forEach((msg: string) => {
+        cy.contains(msg)
+            .should('exist')
+            .and('to.be.visible');
+    });
+});

@@ -3,7 +3,7 @@
     "firstName": "input[name='firstName']",
     "lastName": "input[name='lastName']",
     "email": "input[name='email']",
-    "phoneDropdown": "input[name='country']",
-    "phoneInput": "input[name='number']",
+    "phoneNumberDropdown": "input[name='country']",
+    "phoneNumberInput": "input[name='number']",
     "errorMessage": ".styles_labelError__3hvbE[for='{name}']"
 }
