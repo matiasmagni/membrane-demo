@@ -1,7 +1,7 @@
 {
   "projectId": "membraneDemo",
   "baseUrl": "http://demo.membrane.trade/",
-  "testFiles": "**/*.{feature,features}",
+  "testFiles": "**/*.feature",
   "viewportWidth": 1024,
   "viewportHeight": 800,
   "chromeWebSecurity": false,
@@ -10,5 +10,8 @@
     "openMode": 0
   },
   "pageLoadTimeout": 30000,
-  "defaultCommandTimeout": 5000
+  "defaultCommandTimeout": 10000,
+  "env": {
+    "TAGS": "not @ignore"
+  }
 }

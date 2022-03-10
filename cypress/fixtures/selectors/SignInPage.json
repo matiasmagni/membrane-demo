@@ -8,6 +8,5 @@
     "eyeIcon": "input[type='password'] + span svg",
     "linkButtons": "button[type='button']",
     "errorMessage": ".styles_labelError__3hvbE[for='{name}']",
-    "popupErrorMessage": ".styles_alert__-D2Fi span",
     "errorMessageIcon": "svg[data-icon='exclamation-triangle']"
 }

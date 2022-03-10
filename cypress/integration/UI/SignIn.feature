@@ -1,6 +1,7 @@
 Feature: Sign In
   As a User, I want to be able to sign into Membrane demo.
 
+  
   Scenario: User visualizes Sign In page correctly
     Given the user has navigated to Membrane Demo "Home" page
     Then the user is redirected to a secured URL

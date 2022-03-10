@@ -2,6 +2,7 @@ import BasePage from "./BasePage";
 import HomePage from "./HomePage";
 import SignInPage from "./SignInPage";
 import SignUpPage from "./SignUpPage";
+import SignUpPasswordPage from "./SignUpPasswordPage";
 
 export default class PageFactory {
     /**
@@ -25,9 +26,13 @@ export default class PageFactory {
             case 'Sign Up':
                 page = new SignUpPage();
                 break;
+
+            case 'Sign Up Password':
+                page = new SignUpPasswordPage();
+                break;
     
             default:
-                throw new Error(`Step implementation missing for "${pageName}" page!`);
+                throw new Error(`"${pageName}" page not implemented yet!`);
         }
     
         return page;

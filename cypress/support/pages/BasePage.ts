@@ -48,8 +48,15 @@ export default abstract class BasePage {
      * @param name the name of the page's element. 
      * @returns The page's element.
      */
-    public getElement(name: string): Cypress.Chainable {
-        return cy.get(this.selectors[camelize(name)]);
+    public getElement(name: string): Cypress.Chainable | null {
+        let element: Cypress.Chainable | null = null;
+        const selector = this.selectors[camelize(name)];
+
+        if (Cypress.$(selector).length > 0) {
+            element = cy.get(selector);
+        }
+
+        return element;
     }
 
     /**
@@ -59,8 +66,15 @@ export default abstract class BasePage {
      * @param searchParam the param that describes the search key for the element. 
      * @returns The page's element.
      */
-    public getElementBySearchParam(name: string, searchParam: string): Cypress.Chainable {
-        return cy.get(this.selectors[camelize(name)].replace('{name}', searchParam));
+    public getElementBySearchParam(name: string, searchParam: string): Cypress.Chainable | null {
+        let element: Cypress.Chainable | null = null;
+        const selector = this.selectors[camelize(name)].replace('{name}', searchParam);
+
+        if (Cypress.$(selector).length > 0) {
+            element = cy.get(selector);
+        }
+
+        return element;
     }
 
     /**
