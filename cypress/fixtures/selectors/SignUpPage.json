@@ -1,0 +1,11 @@
+{
+    "URL": "/sign-up",
+    "firstName": "input[name='firstName']",
+    "lastName": "input[name='lastName']",
+    "email": "input[name='email']",
+    "country": "input[name='country']",
+    "phoneNumber": "input[name='number']",
+    "errorMessage": ".styles_labelError__3hvbE[for='{name}']",
+    "checkIcon": "svg[data-icon='check-circle']",
+    "closeIcon": "svg[data-icon='times']"
+}
