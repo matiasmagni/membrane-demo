@@ -1,0 +1,12 @@
+{
+    "URL": "/sign-in",
+    "logo": ".styles_appTitle__qn1G- img",
+    "title": "h2",
+    "email": "input[name='email']",
+    "password": "input[name='password']",
+    "nextButton": "button[type='submit']",
+    "eyeIcon": "input[type='password'] + span svg",
+    "linkButtons": "button[type='button']",
+    "errorMessage": ".styles_labelError__3hvbE[for='{name}']",
+    "errorMessageIcon": "svg[data-icon='exclamation-triangle']"
+}
