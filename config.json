@@ -1,4 +1,18 @@
 {
     "WAIT_TIME_PAGE_LOAD": 1000,
-    "WAIT_TIME_UNFOCUS": 1000
+    "WAIT_TIME_UNFOCUS": 1000,
+    "gmail": {
+        "credentials": {
+            "client_id": "3631275358-ju9a6hi8l17lj520gg15de35djh6ikn3.apps.googleusercontent.com",
+            "project_id": "starry-folder-345215",
+            "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+            "token_uri": "https://oauth2.googleapis.com/token",
+            "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+            "client_secret": "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",
+            "javascript_origins": [
+                "http://localhost"
+            ]
+        },
+        "token": "AIzaSyCVKtTv-fn4jIYXFLod8xnniWG15rX3x5g"
+    }
 }

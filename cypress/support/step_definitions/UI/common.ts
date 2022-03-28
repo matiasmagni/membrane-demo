@@ -137,6 +137,7 @@ When('the user fills all fields with valid data on {string} page',
                     fieldName = 'Email';
                     const [emailPrefix, emailDomain] = fieldValue.split('@');
                     fieldValue = getRandomEmail(emailPrefix, emailDomain);
+                    cy.wrap(fieldValue).as('userEmail');
 
                 default:
                     element = page.getElement(fieldName);
