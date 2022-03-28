@@ -41,7 +41,6 @@ Feature: Sign Up
     Then the user visualizes "Next" button is active
     When the user clicks on "Next" button
     Then the user visualizes "Please enter below the 6-digit security code. You will get it through EMAIL to your {address} email account." on "Sign Up" page
-    When the user receives the 6-digit security code, inputs it and click on Next button manually
     Then the user receives the 6-digit secury code on his email address
     When the user inputs the secury code
     And the user clicks on "Next" button

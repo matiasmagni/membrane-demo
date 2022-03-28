@@ -1,8 +1,8 @@
 /// <reference types="Cypress" />
 import { When, Then } from 'cypress-cucumber-preprocessor/steps';
-import NotFoundError from 'cypress/support/errors/NotFoundError';
-import SignUpPage from 'cypress/support/pages/SignUpPage';
-import { extractVerificationCode } from 'cypress/utils/validation';
+import NotFoundError from '../../errors/NotFoundError';
+import SignUpPage from '../../pages/SignUpPage';
+import { extractVerificationCode } from '../../../utils/validation';
 import App from '../../App';
 
 Then('the user visualizes {string} error message below the Phone Number field on Sign Up page',
