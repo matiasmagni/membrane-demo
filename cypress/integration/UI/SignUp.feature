@@ -27,22 +27,24 @@ Feature: Sign Up
     Then the user visualizes "This field is required" error message below the Phone Number field on Sign Up page
     When the user inputs invalid format data on the "Email" field on "Sign Up" page
     Then the user visualizes "Invalid email format" error message below the "Email" field on "Sign Up" page
-
-  @PipelineIgnore
+  
   Scenario: User completes sign up process after inputting valid data (Hybrid)
     Given the user has navigated to Membrane Demo "Sign Up" page
     Then the user visualizes "Next" button is inactive
     When the user fills all fields with valid data on "Sign Up" page
-      | fieldName           | value                 |
-      | First Name          | Soledad               |
-      | Last Name           | Basle                 |
-      | Email (Random Base) | solanabasle@gmail.com |
-      | Country             | Argentina             |
-      | Phone Number        | 2634849515            |
+      | fieldName           | value                     |
+      | First Name          | Matias                    |
+      | Last Name           | Magni                     |
+      | Email (Random Base) | matias.magni.qa@gmail.com |
+      | Country             | Argentina                 |
+      | Phone Number        | 2612535890                |
     Then the user visualizes "Next" button is active
     When the user clicks on "Next" button
     Then the user visualizes "Please enter below the 6-digit security code. You will get it through EMAIL to your {address} email account." on "Sign Up" page
     When the user receives the 6-digit security code, inputs it and click on Next button manually
+    Then the user receives the 6-digit secury code on his email address
+    When the user inputs the secury code
+    And the user clicks on "Next" button
     Then the user visualizes "Sign Up Password" page elements correctly
       | element                    | type           | content                                           |
       | Title                      | text           | Sign Up                                           |
